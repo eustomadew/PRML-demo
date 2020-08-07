@@ -1,0 +1,2 @@
+# 忽略docs/build/文件夹内容，这个文件夹不用上传
+docs/build/
