@@ -1,5 +1,1 @@
-sphinx
-sphinx_rtd_theme
-recommommark
-
 sphinx_theme
