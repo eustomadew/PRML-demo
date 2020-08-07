@@ -10,6 +10,7 @@ Welcome to PRML's documentation!
    :maxdepth: 2
    :caption: Contents:
    
+   1_Introduction.md
    README.md
 
 
