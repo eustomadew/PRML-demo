@@ -189,3 +189,9 @@ $ sphinx-quickstart
 1. 在项目中点击 `管理`->`设置`，修改语言 `Simplified Chinese`，保存后等待重新构建完成
 2. 在项目中点击 `管理`->`高级设置`，修改`Python 配置文件`项，docs/zh_CN/source/conf.py，点击保存，等待构建完成
 3. 接下来配置语言切换，选择 PRML-demo-zh，`管理`->`翻译`->`添加`，选择 PRML-demo-en 进行添加，添加完成后，点击`阅读文档`，会出现语言切换
+
+## 多版本文档
+
+```bash
+$ git tag -a v0.1.1 -m "first version"
+```
