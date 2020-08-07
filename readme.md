@@ -1,7 +1,7 @@
 # PRML 模式识别与机器学习
 
-阅读文档 [PRML-demo](https://prml-demo.readthedocs.io/) 
-- 中文版 [![Documentation Status](https://readthedocs.org/projects/prml-demo/badge/?version=latest)](https://prml-demo.readthedocs.io/en/latest/?badge=latest) [https://prml-demo.readthedocs.io/zh_CN/latest/](https://prml-demo.readthedocs.io/zh_CN/latest/)
+阅读文档 
+- 中文版 [![Documentation Status](https://readthedocs.org/projects/prml-demo-zh/badge/?version=latest)](https://prml-demo-zh.readthedocs.io/zh_CN/latest/?badge=latest) [https://prml-demo-zh.readthedocs.io/zh_CN/latest/](https://prml-demo-zh.readthedocs.io/zh_CN/latest/)
 - English [![Documentation Status](https://readthedocs.org/projects/prml-demo-en/badge/?version=latest)](https://prml-demo.readthedocs.io/en/latest/?badge=latest) [https://prml-demo-en.readthedocs.io/en/latest/](https://prml-demo-en.readthedocs.io/en/latest/)
 
 
