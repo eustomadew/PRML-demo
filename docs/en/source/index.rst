@@ -1,5 +1,5 @@
 .. helloworld documentation master file, created by
-   sphinx-quickstart on Sat Jun  1 13:29:49 2019.
+   sphinx-quickstart on Fri Aug  7 04:03:25 2020.
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
@@ -9,8 +9,8 @@ Welcome to helloworld's documentation!
 .. toctree::
    :maxdepth: 2
    :caption: Contents:
-   
-   README.md
+
+
 
 Indices and tables
 ==================
