@@ -1,7 +1,8 @@
 # PRML 模式识别与机器学习
-[![Documentation Status](https://readthedocs.org/projects/prml-demo/badge/?version=latest)](https://prml-demo.readthedocs.io/en/latest/?badge=latest) 
 
-阅读文档 [PRML-demo](https://prml-demo.readthedocs.io/)
+阅读文档 [PRML-demo](https://prml-demo.readthedocs.io/) 
+- 中文版 [![Documentation Status](https://readthedocs.org/projects/prml-demo/badge/?version=latest)](https://prml-demo.readthedocs.io/en/latest/?badge=latest) [https://prml-demo.readthedocs.io/zh_CN/latest/](https://prml-demo.readthedocs.io/zh_CN/latest/)
+- English [![Documentation Status](https://readthedocs.org/projects/prml-demo-en/badge/?version=latest)](https://prml-demo.readthedocs.io/en/latest/?badge=latest) [https://prml-demo-en.readthedocs.io/en/latest/](https://prml-demo-en.readthedocs.io/en/latest/)
 
 
 
@@ -170,3 +171,4 @@ $ sphinx-quickstart
 项目默认关联 en 英文，修改成双语
 1. 在项目中点击 `管理`->`设置`，修改语言 `Simplified Chinese`，保存后等待重新构建完成
 2. 在项目中点击 `管理`->`高级设置`，修改`Python 配置文件`项，docs/zh_CN/source/conf.py，点击保存，等待构建完成
+3. 接下来配置语言切换，选择 PRML-demo-zh，`管理`->`翻译`->`添加`，选择 PRML-demo-en 进行添加，添加完成后，点击`阅读文档`，会出现语言切换
