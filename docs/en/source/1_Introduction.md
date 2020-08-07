@@ -1,6 +1,6 @@
-# 1 Introduction
+# Introduction
 
-## 1.1 Example: Polynomial Curve Fitting
+## Example: Polynomial Curve Fitting
 
 **A training set** comprising $N$ observations:
 - data $x$, i.e., $\mathbf{x}= (x_1, ..., x_N)^\mathsf{T}$
@@ -20,18 +20,18 @@ Functions, such as the polynomial, which are linear in the unknown parameters ha
 
 $$E(\mathbf{w}) = \frac{1}{2}\sum_{n=1}^N \{y(x_n,\mathbf{w}) - t_n\}^2$$
 
-## 1.2 Probability Theory
+## Probability Theory
 
-### 1.2.1 Probability densities
+### Probability densities
 
-### 1.2.2 Expectations and covariances
+### Expectations and covariances
 
-## 1.3 Model Selection
+## Model Selection
 
-## 1.4 The Curse of Dimensionality
+## The Curse of Dimensionality
 
-## 1.5 Decision Theory
+## Decision Theory
 
-## 1.6 Information Theory
+## Information Theory
 
 ## Exercises

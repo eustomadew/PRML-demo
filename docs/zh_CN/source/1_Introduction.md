@@ -1,6 +1,6 @@
-# 1 引言
+# 引言
 
-## 1.1 示例: 多项式曲线拟合
+## 示例: 多项式曲线拟合
 
 **A training set** comprising $N$ observations:
 - data $x$, i.e., $\mathbf{x}= (x_1, ..., x_N)^\mathsf{T}$
@@ -20,18 +20,18 @@ Functions, such as the polynomial, which are linear in the unknown parameters ha
 
 $$E(\mathbf{w}) = \frac{1}{2}\sum_{n=1}^N \{y(x_n,\mathbf{w}) - t_n\}^2$$
 
-## 1.2 概率理论
+## 概率理论
 
-### 1.2.1 概率密度
+### 概率密度
 
-### 1.2.2 期望和方差
+### 期望和方差
 
-## 1.3 模型选择
+## 模型选择
 
-## 1.4 维度灾难
+## 维度灾难
 
-## 1.5 决策理论
+## 决策理论
 
-## 1.6 信息理论
+## 信息理论
 
 ## 习题

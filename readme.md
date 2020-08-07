@@ -192,6 +192,8 @@ $ sphinx-quickstart
 
 ## 多版本文档
 
+Configure your documentation builds! Adding a [.readthedocs.yml](https://docs.readthedocs.io/page/config-file/v2.html) file to your project is the recommended way to configure your documentation builds. You can declare dependencies, set up submodules, and many other great features.
+
 ```bash
 $ git tag -a v0.1.1 -m "first version"
 ```
