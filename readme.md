@@ -36,6 +36,7 @@ $ sphinx-quickstart # 生成docs项目
 $ make html # 编译
 $ # 预览页面: build\html\index.html
 ```
+
 \# 3. 配置主题
 ```shell
 $ pip install sphinx_rtd_theme
@@ -46,6 +47,19 @@ $ # source/conf.py 配置
 $ make html
 $ # 主题选择请查阅 https://sphinx-themes.org/
 ```
+其他主题
+```bash
+$ pip install sphinx_theme
+
+import sphinx_theme
+html_theme = "stanford_theme"
+html_theme_path = [sphinx_theme.get_html_theme_path('stanford-theme')]
+
+# All available themes:
+print(sphinx_theme.THEME_LIST)
+# >> ['stanford_theme', 'neo_rtd_theme']
+```
+
 \# 4. 配置 markdown
 ```shell
 $ pip install recommommark

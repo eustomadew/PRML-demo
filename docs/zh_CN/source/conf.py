@@ -19,7 +19,7 @@ import sphinx_rtd_theme
 
 # -- Project information -----------------------------------------------------
 
-project = 'helloworld'
+project = '模式识别与机器学习'
 copyright = '2020, eustomaqua'
 author = 'eustomaqua'
 
