@@ -168,5 +168,5 @@ $ sphinx-quickstart
 ```
 
 项目默认关联 en 英文，修改成双语
-1. 在项目中点击 `管理`->`设置`，修改语言 `Simplified`，保存后等待重新构建完成
-2. 在项目中点击 `管理`->`高级设置`，修改`Python配置文件`项，docs/zh_CN/source/conf.py，点击保存，等待构建完成
+1. 在项目中点击 `管理`->`设置`，修改语言 `Simplified Chinese`，保存后等待重新构建完成
+2. 在项目中点击 `管理`->`高级设置`，修改`Python 配置文件`项，docs/zh_CN/source/conf.py，点击保存，等待构建完成
