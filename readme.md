@@ -59,6 +59,9 @@ html_theme_path = [sphinx_theme.get_html_theme_path('stanford-theme')]
 print(sphinx_theme.THEME_LIST)
 # >> ['stanford_theme', 'neo_rtd_theme']
 ```
+这里会出现一个错误，因为 sphinx_theme 是自定义主题，会提示 ModuleNotFoundError: No module named 'sphinx_theme'
+
+Configure your documentation builds! Adding a [.readthedocs.yml](https://docs.readthedocs.io/page/config-file/v2.html) file to your project is the recommended way to configure your documentation builds. You can declare dependencies, set up submodules, and many other great features.
 
 \# 4. 配置 markdown
 ```shell
