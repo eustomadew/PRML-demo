@@ -18,7 +18,7 @@ PRML
 ######
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 3
 
    PRML/1_Introduction.rst 
 
@@ -27,9 +27,10 @@ Pkgs
 ######
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 3
 
    Pkgs/1_Installation.rst
+   Pkgs/2_CommonUsages.rst
 
 ######
 Algs
