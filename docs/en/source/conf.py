@@ -24,7 +24,7 @@ copyright = '2020, eustomaqua'
 author = 'eustomaqua'
 
 # The short X.Y version
-version = '0.1.1'
+# version = '0.1.1'
 # The full version, including alpha/beta/rc tags
 release = '0.1.1'
 
@@ -73,9 +73,9 @@ pygments_style = 'sphinx'
 #
 # html_theme = 'alabaster'
 
-# import sphinx_rtd_theme
-# html_theme = "sphinx_rtd_theme"
-# html_theme_path = [sphinx_rtd_theme.get_html_theme_path()]
+import sphinx_rtd_theme
+html_theme = "sphinx_rtd_theme"
+html_theme_path = [sphinx_rtd_theme.get_html_theme_path()]
 
 # from setuptools.command import easy_install
 # easy_install.main(["sphinx_theme"])
@@ -92,6 +92,6 @@ pygments_style = 'sphinx'
 html_static_path = ['_static']
 
 #---sphinx-themes-----
-html_theme = 'neo_rtd_theme'
-import sphinx_theme
-html_theme_path = [sphinx_theme.get_html_theme_path()]
+# html_theme = 'neo_rtd_theme'
+# import sphinx_theme
+# html_theme_path = [sphinx_theme.get_html_theme_path()]
