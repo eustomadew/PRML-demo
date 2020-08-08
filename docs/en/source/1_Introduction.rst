@@ -1,16 +1,21 @@
+==============
 Introduction
-============
+==============
+
 
 Example: Polynomial Curve Fitting
----------------------------------
+====================================
 
 **A training set** comprising `N` observations:
+
 - data `x`, i.e., :math:`\mathbf{x}= (x_1, ..., x_N)^\mathsf{T}`
 - target value `t`
 
 Fit the data using a polynomial function of the form
+
 :math:`\displaystyle y(x,\mathbf{w}) = w_0 + w_1x + w_2x^2 + ... + w_Mx^M = \sum_{j=0}^M w_jx^j`
 where
+
 - `M` is the *order* of the polynomial
 - `x_j` denotes `x` raised to the power of `j`
 - `w_j` is polynomial coefficients
@@ -22,20 +27,28 @@ Functions, such as the polynomial, which are linear in the unknown parameters ha
 
 :math:`\displaystyle E(\mathbf{w}) = \frac{1}{2}\sum_{n=1}^N \{y(x_n,\mathbf{w}) - t_n\}^2`
 
-## Probability Theory
----------------------
 
-### Probability densities
+Probability Theory
+=====================
+
+-------------------------
+Probability densities
 -------------------------
 
-### Expectations and covariances
+--------------------------------
+Expectations and covariances
 --------------------------------
 
-## Model Selection
 
-## The Curse of Dimensionality
+Model Selection
+==================
 
-## Decision Theory
+
+The Curse of Dimensionality
+==============================
+
+Decision Theory
+==================
 
 ## Information Theory
 
