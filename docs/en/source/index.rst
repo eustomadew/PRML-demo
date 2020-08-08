@@ -22,11 +22,6 @@ PRML
 
    PRML/1_Introduction.rst 
 
-
-######
-Algs
-######
-
 ######
 Pkgs
 ######
@@ -35,6 +30,14 @@ Pkgs
    :maxdepth: 2
 
    Pkgs/1_Installation.rst
+
+######
+Algs
+######
+
+######
+Cmds
+######
 
 
 

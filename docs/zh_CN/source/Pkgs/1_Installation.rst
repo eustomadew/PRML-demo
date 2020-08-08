@@ -1,5 +1,10 @@
+#######
+B. Pkgs
+#######
+
+
 ==============
-Installation
+安装
 ==============
 
 
@@ -99,20 +104,20 @@ License+ Version  18.04 16.04 14.04 7  10 11.0 10.2 10.1 10.0 9.2 9.1 9.0 8.0 7.
 TensorFlow
 -------------------------
 
-**Dependencies**
+TensorFlow 安装依赖
 
-- Official Dependency Refers: https://www.tensorflow.org/install/source
-- GPU Version Requirements: https://zhuanlan.zhihu.com/p/60924644
-- Official GPU Support: https://www.tensorflow.org/install/gpu?hl=zh-cn
-- CSDN· cuda with tfgpu: https://blog.csdn.net/qq_31347869/article/details/89060087
-- CSDN· Corresponding tf,cuda,cudnn: https://blog.csdn.net/yuejisuo1948/article/details/81043962
+- 重要参考·官方: https://www.tensorflow.org/install/source
+- GPU 版本要求: https://zhuanlan.zhihu.com/p/60924644
+- GPU 支持·官方: https://www.tensorflow.org/install/gpu?hl=zh-cn
+- CSDN· cuda和tfgpu对应: https://blog.csdn.net/qq_31347869/article/details/89060087
+- CSDN· tf,cuda,cudnn 版本对应关系: https://blog.csdn.net/yuejisuo1948/article/details/81043962
 
-**Verified Configurations**
+经过测试的构建配置
 
 ================== =============== ============== =========== ============== ====== ======
   *Linux*                           CPU \& GPU                                   GPU 
 ---------------------------------- ----------------------------------------- -------------
- CPU Version         GPU Version   Python Version   Compiler    Build Tools   cuDNN  CUDA
+ CPU 版本            GPU 版本        Python 版本     编译器      构建工具     cuDNN  CUDA
 ================== =============== ============== =========== ============== ====== ======
 tensorflow-2.1.0   tf-2.1.0         2.7, 3.5-3.7   GCC 7.3.1   Bazel 0.27.1   7.6    10.1 
 tensorflow-2.0.0   tf-2.0.0         2.7, 3.3-3.7   GCC 7.3.1   Bazel 0.26.1   7.4    10.0 
@@ -135,28 +140,29 @@ tensorflow-1.0.0   tf\_gpu-1.0.0    2.7, 3.3-3.6   GCC 4.8     Bazel 0.4.2    5.
 ================== =============== ============== =========== ============== ====== ======
 
 ================= ============= ============== =================== ============= ===== ====
- *macOS*                          CPU (& if GPU)                                   GPU
+ *macOS*                          CPU (如果有 GPU)                                   GPU
 ------------------------------- ------------------------------------------------ ----------
  CPU Version       GPU Version  Python Version  Compiler            Build Tool   cuDNN CUDA
 ================= ============= ============== =================== ============= ===== ====
-tensorflow-2.1.0  \              2.7, 3.5-3.7  Clang in Xcode 10.1  Bazel 0.27.1 
-tensorflow-2.0.0  \              2.7, 3.3-3.7  Clang in Xcode 10.1  Bazel 0.26.1 
-tensorflow-1.14.0 \              2.7, 3.3-3.7   Clang in Xcode      Bazel 0.24.1 
-tensorflow-1.13.1 \              2.7, 3.3-3.7   Clang in Xcode      Bazel 0.19.2 
-tensorflow-1.12.0 \              2.7, 3.3-3.6   Clang in Xcode      Bazel 0.15.0 
-tensorflow-1.11.0 \              2.7, 3.3-3.6   Clang in Xcode      Bazel 0.15.0 
-tensorflow-1.10.0 \              2.7, 3.3-3.6   Clang in Xcode      Bazel 0.15.0 
-tensorflow-1.9.0  \              2.7, 3.3-3.6   Clang in Xcode      Bazel 0.11.0 
-tensorflow-1.8.0  \              2.7, 3.3-3.6   Clang in Xcode      Bazel 0.10.1 
-tensorflow-1.7.0  \              2.7, 3.3-3.6   Clang in Xcode      Bazel 0.10.1 
-tensorflow-1.6.0  \              2.7, 3.3-3.6   Clang in Xcode      Bazel 0.8.1  
-tensorflow-1.5.0  \              2.7, 3.3-3.6   Clang in Xcode      Bazel 0.8.1  
-tensorflow-1.4.0  \              2.7, 3.3-3.6   Clang in Xcode      Bazel 0.5.4  
-tensorflow-1.3.0  \              2.7, 3.3-3.6   Clang in Xcode      Bazel 0.4.5  
-tensorflow-1.2.0  \              2.7, 3.3-3.6   Clang in Xcode      Bazel 0.4.5  
-tensorflow-1.1.0  tf_gpu-1.1.0   2.7, 3.3-3.6   Clang in Xcode      Bazel 0.4.2   5.1   8 
-tensorflow-1.0.0  tf_gpu-1.0.0   2.7, 3.3-3.6   Clang in Xcode      Bazel 0.4.2   5.1   8 
+tensorflow-2.1.0  \              2.7, 3.5-3.7  Xcode 10.1中的Clang  Bazel 0.27.1 
+tensorflow-2.0.0  \              2.7, 3.3-3.7  Xcode 10.1中的Clang  Bazel 0.26.1 
+tensorflow-1.14.0 \              2.7, 3.3-3.7   Xcode 中的 Clang    Bazel 0.24.1 
+tensorflow-1.13.1 \              2.7, 3.3-3.7   Xcode 中的 Clang    Bazel 0.19.2 
+tensorflow-1.12.0 \              2.7, 3.3-3.6   Xcode 中的 Clang    Bazel 0.15.0 
+tensorflow-1.11.0 \              2.7, 3.3-3.6   Xcode 中的 Clang    Bazel 0.15.0 
+tensorflow-1.10.0 \              2.7, 3.3-3.6   Xcode 中的 Clang    Bazel 0.15.0 
+tensorflow-1.9.0  \              2.7, 3.3-3.6   Xcode 中的 Clang    Bazel 0.11.0 
+tensorflow-1.8.0  \              2.7, 3.3-3.6   Xcode 中的 Clang    Bazel 0.10.1 
+tensorflow-1.7.0  \              2.7, 3.3-3.6   Xcode 中的 Clang    Bazel 0.10.1 
+tensorflow-1.6.0  \              2.7, 3.3-3.6   Xcode 中的 Clang    Bazel 0.8.1  
+tensorflow-1.5.0  \              2.7, 3.3-3.6   Xcode 中的 Clang    Bazel 0.8.1  
+tensorflow-1.4.0  \              2.7, 3.3-3.6   Xcode 中的 Clang    Bazel 0.5.4  
+tensorflow-1.3.0  \              2.7, 3.3-3.6   Xcode 中的 Clang    Bazel 0.4.5  
+tensorflow-1.2.0  \              2.7, 3.3-3.6   Xcode 中的 Clang    Bazel 0.4.5  
+tensorflow-1.1.0  tf_gpu-1.1.0   2.7, 3.3-3.6   Xcode 中的 Clang    Bazel 0.4.2   5.1   8 
+tensorflow-1.0.0  tf_gpu-1.0.0   2.7, 3.3-3.6   Xcode 中的 Clang    Bazel 0.4.2   5.1   8 
 ================= ============= ============== =================== ============= ===== ====
+
 
 
 
