@@ -10,14 +10,37 @@ Welcome to PRML's documentation!
    :maxdepth: 2
    :caption: Contents:
    
-   1_Introduction.rst 
    README.md
 
 
+######
+PRML
+######
 
-Indices and tables
-==================
+.. toctree::
+   :maxdepth: 2
 
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
+   PRML/1_Introduction.rst 
+
+
+######
+Algs
+######
+
+######
+Pkgs
+######
+
+.. toctree::
+   :maxdepth: 2
+
+   Pkgs/1_Installation.rst
+
+
+
+.. Indices and tables
+.. ==================
+.. 
+.. * :ref:`genindex`
+.. * :ref:`modindex`
+.. * :ref:`search`
