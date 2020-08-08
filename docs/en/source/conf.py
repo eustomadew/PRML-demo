@@ -34,8 +34,19 @@ extensions = [
     'recommonmark'
 ]
 
+source_suffix = {
+    '.rst': 'restructuredtext',
+    '.txt': 'markdown',
+    '.md': 'markdown',
+}
+
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
+
+mathjax_config = {
+    'extensions': ['tex2jax.js'],
+    'jax': ['input/TeX', 'output/HTML-CSS'],
+}
 
 # List of patterns, relative to source directory, that match files and
 # directories to ignore when looking for source files.
@@ -50,14 +61,17 @@ exclude_patterns = []
 #
 # html_theme = 'alabaster'
 
-import sphinx_rtd_theme
-html_theme = "sphinx_rtd_theme"
-html_theme_path = [sphinx_rtd_theme.get_html_theme_path()]
-# import sphinx_theme
+# import sphinx_rtd_theme
+# html_theme = "sphinx_rtd_theme"
+# html_theme_path = [sphinx_rtd_theme.get_html_theme_path()]
+
+from setuptools.command import easy_install
+easy_install.main(["sphinx_theme"])
+import sphinx_theme
 # html_theme = "stanford_theme"
 # html_theme_path = [sphinx_theme.get_html_theme_path('stanford-theme')]
-# html_theme = "neo_rtd_theme"
-# html_theme_path = [sphinx_theme.get_html_theme_path('neo_rtd_theme')]
+html_theme = "neo_rtd_theme"
+html_theme_path = [sphinx_theme.get_html_theme_path('neo_rtd_theme')]
 
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,

@@ -9,6 +9,7 @@
 # ReadtheDocs 构建文档
 
 [Demo Preparation](https://readthedocs-demo-zh.readthedocs.io/zh_CN/latest/%E6%96%87%E4%BB%B6%E6%89%98%E7%AE%A1%E7%B3%BB%E7%BB%9F-ReadtheDocs.html)
+`.rst (reStructuredText)`语法 [学习参考](http://www.sphinx-doc.org/en/master/usage/restructuredtext/index.html)
 
 ## QuickStart 本地
 
