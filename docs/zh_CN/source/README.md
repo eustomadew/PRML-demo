@@ -10,7 +10,7 @@
 
 [Pattern Recognition And Machine Learning Official 2006](http://users.isr.ist.utl.pt/~wurmd/Livros/school/Bishop%20-%20Pattern%20Recognition%20And%20Machine%20Learning%20-%20Springer%20%202006.pdf)  
 
-## Pkgs
+## 包库
 
 [TensorFlow 中文社区](https://www.tensorflow.org/?hl=zh-cn)   
 [TensorFlow API](https://www.tensorflow.org/api_docs/python/tf?hl=zh-cn)   
@@ -26,11 +26,11 @@
 
 [深度学习工程师生存指南](https://dl.ypw.io/)  
 
-## Algs
+## 算法
 
 
 
-## Cmds
+## 命令
 
 ### Substantial
 

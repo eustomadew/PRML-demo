@@ -23,7 +23,7 @@ PRML
    PRML/1_Introduction.rst
 
 ######
-Pkgs
+包库
 ######
 
 .. toctree::
@@ -33,12 +33,17 @@ Pkgs
    Pkgs/2_CommonUsages.rst
 
 ######
-Algs
+算法
 ######
 
 ######
-Cmds
+命令
 ######
+
+.. toctree::
+   :maxdepth: 3
+
+   Cmds/1_Anaconda.rst
 
 
 
