@@ -220,20 +220,191 @@ DM 任务分类
 
     对于某些数据类型，属性具有涉及时间或空间序的联系。
 
+    - 时序数据 (sequential data) / 时间数据 (temporal data)
+    - 序列数据 (sequence data)
+    - 时间序列数据 (time series data)
+
+        - 一种特殊的时序数据，其中每个记录都是一个时间序列 (time series)，即一段时间以来的测量序列
+        - 分析时考虑 **时间自相关 (temporal autocorrelation)**，即如果两个测量的时间很接近，则这些测量的值通常非常相似
+
+    - 空间数据
+
+        - 重要特点之一是 **空间自相关 (spatial autocorrelation) 性**，即物理上靠近的对象趋向于在其他方面也相似
+
+.. admonition:: 5. 处理非记录数据
+
+    大部分数据挖掘算法都是为记录数据或其变体(如事物数据和数据矩阵)设计的。通过从数据对象中提取特征，并使用这些特征创建对应于每个对象的记录，针对记录数据的技术也可以用于非记录数据。
+    在某些情况下，数据的记录形式表示不能捕获数据中的所有信息，如时间空间数据中属性之间存在的时间联系以及对象之间存在的空间联系应加以考虑，直接假定属性之间在统计上相互独立并不明智。
+
 
 
 数据质量
 =====================
 
+数据挖掘着眼于两个方面：
+
+1. 数据质量问题的检测和纠正；
+2. 使用可以容忍低质量数据的算法。
+
+Step 1 的检测和纠正，通常称作 **数据清理 (data cleaning)**。
+
+1. 测量误差 (measurement error) 和数据收集错误 (data collection error)
+2. 噪声和伪像: 鲁棒算法 (robust algorithm), 伪像 (artifact)
+3. 精度 (precision)、偏倚 (bias) 和准确率 (accuracy): 有效数字 (significant digit)
+4. 离群点 (outlier)
+5. 遗漏值: 常用处理策略
+
+    - 删除数据对象或属性
+    - 估计遗漏值
+    - 在分析时忽略遗漏值
+
+6. 不一致的值
+7. 重复数据: 去重复 (deduplication)
+
+从 **应用角度** 考虑数据质量问题
+
+- 时效性
+- 相关性: 常见问题是抽样偏倚 (sampling bias)
+- 关于数据的知识
+
 
 数据预处理
 =====================
+
+大体分为两类：选择分析所需要的数据对象和属性，以及创建/改变属性
+
+目标：改善数据挖掘分析工作，减少时间，降低成本和提高质量
+
+术语：特征 (feature) = 变量 (variable) = 属性 (attribute)
+
+
+预处理技术主题：
+
+- 聚集 (aggregation)
+- 抽样
+
+    - 简单随机抽样 (simple random sampling): 1) 无放回抽样; 2) 有放回抽样
+    - 分层抽样 (stratified sampling)
+    - 自适应 (adaptive) 或渐进抽样 (progressive sampling)
+
+- 维归约
+
+    - 维灾难
+    - 基于线性代数方法的维归约技术
+
+        - 使用线性代数方法，将数据由高维空间投影到低维空间
+        - 主成分分析 (Principal Components Analysis, PCA): 连续属性
+        - 奇异值分解 (Singular Value Decomposition, SVD)
+
+- 特征子集选择
+
+    - *冗余特征*: 重复了包含在一个或多个其他属性中的许多或所有信息
+    - *不相关特征*: 包含对于数据挖掘任务几乎完全没用的信息
+    - 涉及 :math:`n` 个属性的子集多达 :math:`2^n` 个
+    - 三种标准的特征选择方法：
+
+        - 嵌入 (embedded approach): 作为DM算法的一部分，在运行期间选择属性
+        - 过滤 (filter approach): 使用独立于DM任务的方法，在算法执行前进行特征选择
+        - 包装 (wrapper approach): 将目标DM算法作为黑盒，使用类似于之前的理想算法，但在寻找最佳属性子集的过程中通常并不枚举所有可能的子集
+
+    - 进一步讨论过滤和包装方法
+
+        - 1. 特征子集选择体系结构
+
+            - 特征选择过程: 子集评估度量、控制新的特征子集产生的搜索策略、停止搜索判断和验证过程
+            - 过滤与包装的区别: 使用不同的特征子集评估方法。包装：子集评估使用目标数据挖掘算法；过滤：子集评估技术不同于目标数据挖掘算法
+            - 特征子集选择是搜索所有可能的特征子集的过程，需折衷权衡“搜索策略的计算花费应较低”和“特征子集应尽可能优”
+            - 对于搜索，其评估步骤不可或缺，即根据某种评估度量来确定属性特征子集的质量。过滤：评估度量试图预测实际的DM算法在给定属性集上的执行效果；包装：评估包括实际运行目标DM应用，子集评估函数是通常用于度量数据挖掘结果的评判标准
+            - 限于子集集合的规模，需要某种停止搜索判断，其策略通常基于如下一个或多个条件：迭代次数，子集评估的度量值是否最优或超过给定阈值，一个特定大小的子集是否已经得到，大小和评估标准是否同时达到，使用搜索策略得到的选择是否可以实现改进
+            - 选定特征子集后应验证目标DM算法在选定子集上的效果。一种验证方法是比较在所有特征集合和给定特征子集上运行DM算法的结果，期待在子集上获得的结果等同或优于在全集合上的结果。另一种验证方法是使用不同特征选择算法得到特征子集，然后比较数据挖掘算法在每个子集上的运行结果。
+
+        - 2. 特征加权
+
+- 特征创建
+
+    - 1. 特征提取 (feature extraction): 由原始数据创建新的特征集
+    - 2. 映射数据到新的空间: e.g., 傅里叶变换 (Fourier transform)、小波变换 (wavelet transform) etc
+    - 3. 特征构造
+
+- 离散化 (discretization) 和二元化 (binarization)
+
+    - 1. 二元化
+    - 2. 连续属性离散化: 非监督离散化、监督离散化
+    - 3. 具有过多值的分类属性
+
+- 変量変换 (variable transformation)
+
+    - 1. 简单函数
+    - 2. 规范化 (normalization) 或标准化 (standardization)
 
 
 相似性和相异性的度量
 =====================
 
+邻近度 (proximity): 相似性 (similarity), 相异性 (dissimilarity) / 距离 (distance)
 
+距离 & 距离矩阵 (distance matrix)
+
+- 欧几里得距离 (Euclidean distance): 
+  :math:`d(\mathbf{x},\mathbf{y}) = \sqrt{\sum_{k=1}^n (x_k-y_k)^2}`
+- 闵可夫斯基距离 (Minkowski distance): 
+  :math:`d(\mathbf{x},\mathbf{y}) = \left( \sum_{k=1}^n |x_k-y_k|^r \right)^{1/r}`
+
+    - :math:`r=1` : 城市街区(/曼哈顿/出租车/ :math:`L_1` 范数)距离，e.g., 汉明距离 (Hamming distance)
+    - :math:`r=2` : 欧几里得距离 ( :math:`L_2` 范数)
+    - :math:`r=\infty` : 上确界 (:math:`L_{max}` 或 :math:`L_\infty` 范数) 距离，是对象属性之间的最大距离，即
+      :math:`d(\mathbf{x},\mathbf{y}) = \lim_{r\to \infty} \left( \sum_{k=1}^n|x_k-y_k|^r \right)^{1/r}`
+
+- 注意区分 *r* 和 *n*。以及所有的距离矩阵都是对称的
+- 距离的性质 :math:`\forall \mathbf{x,y}`
+
+    - 非负性 :math:`d(\mathbf{x,y})\geqslant 0`，等号成立当且仅当 :math:`\mathbf{x}=\mathbf{y}`
+    - 对称性 :math:`d(\mathbf{x,y}) = d(\mathbf{y,x})`
+    - 三角不等式 :math:`\forall \mathbf{x,y,z},\, d(\mathbf{x,z})\leqslant d(\mathbf{x,y}) + d(\mathbf{y,z})`
+    - 同时满足以上三个性质的测度称为度量 (metric)
+    - e.g., 非度量的相异度：集合差，只满足非负性
+    - e.g., 非度量的相异度：时间
+
+相似度：三角不等式通常不成立，对称性和非负性通常成立
+
+- To be specific, :math:`s(\mathbf{x,y})` 的典型性质
+- (1) :math:`s(\mathbf{x,y})=1` 当且仅当 :math:`\mathbf{x}=\mathbf{y}`, :math:`(0\leqslant s\leqslant 1)`
+- (2) :math:`\forall \mathbf{x,y},\, s(\mathbf{x,y}) = s(\mathbf{y,x})` (对称性)
+- e.g., 非对称相似性度量
+
+**邻近性度量的例子**
+
+1. 二元数据的相似性度量
+
+    - 两个仅包含二元属性的对象之间的相似性度量又称相似系数 (similarity coefficient) :math:`\in [0,1]` 
+        - :math:`f_{00}=` 属性个数 of :math:`\mathbf{x}=0, \mathbf{y}=0`
+        - :math:`f_{01}=` 属性个数 of :math:`\mathbf{x}=0, \mathbf{y}=1`
+        - :math:`f_{10}=` 属性个数 of :math:`\mathbf{x}=1, \mathbf{y}=0`
+        - :math:`f_{11}=` 属性个数 of :math:`\mathbf{x}=1, \mathbf{y}=1`
+
+    - 简单匹配系数 (Simple Matching Coefficient, SMC):
+      :math:`SMC = \frac{\text{值匹配的属性个数}}{\text{属性个数}} = \frac{ f_{11}+f{00} }{ f_{01}+f_{10}+f_{11}+f_{00} }`
+    - Jaccard 系数 (Jaccard Coefficient):
+      :math:`J = \frac{\text{匹配的个数}}{\text{不涉及0-0匹配的属性个数}} = \frac{ f_{11} }{ f_{01}+f_{10}+f_{11} }`
+
+2. 余弦相似度 (cosine similarity): 
+:math:`\cos(\mathbf{x,y}) = \frac{ \mathbf{x}\cdot\mathbf{y} }{ \|\mathbf{x}\| \cdot \|\mathbf{y}\| }`, 
+
+    - 其中 :math:`\mathbf{x}\cdot\mathbf{y}= \sum_{k=1}^n x_ky_k`, 
+    - 而向量长度/模为 :math:`\|\mathbf{x}\| = \sqrt{\sum_{k=1}^nx_k^2} = \sqrt{\mathbf{x}\cdot\mathbf{x}}`
+
+3. 广义 Jaccard 系数 / Tanimoto 系数:
+:math:`EJ(\mathbf{x,y}) = \frac{ \mathbf{x}\cdot\mathbf{y} }{ \|\mathbf{x}\|^2 + \|\mathbf{y}\|^2 - \mathbf{x}\cdot\mathbf{y} }`
+
+4. 相关性: 皮尔森相关 (Pearson's correlation) 系数
+:math:`corr(\mathbf{x,y}) = \frac{covariance(\mathbf{x,y})}{standard\_deviation(\mathbf{x}) \times standard\_deviation(\mathbf{y})} = \frac{ s_{xy} }{ s_xs_y }`
+
+    - 使用标准的统计学记号和定义：
+    - :math:`covariance(\mathbf{x,y}) = s_{xy} = \frac{1}{n-1} \sum_{k=1}^n (x_k-\bar{x})(y_k-\bar{y})`
+    - :math:`standard\_deviation(\mathbf{x}) = s_x = \sqrt{\frac{1}{n-1} \sum_{k=1}^n (x_k-\bar{x})^2}`
+    - :math:`standard\_deviation(\mathbf{y}) = s_y = \sqrt{\frac{1}{n-1} \sum_{k=1}^n (y_k-\bar{y})^2}`
+    - :math:`\bar{x} = \frac{1}{n} \sum_{k=1}^n x_k` 是 :math:`\mathbf{x}` 的均值
+    - :math:`\bar{y} = \frac{1}{n} \sum_{k=1}^n y_k` 是 :math:`\mathbf{y}` 的均值
 
 
 ---------------------
