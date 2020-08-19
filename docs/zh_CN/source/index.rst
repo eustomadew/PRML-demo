@@ -21,6 +21,7 @@ PRML
    :maxdepth: 3
 
    PRML/1_Introduction.rst
+   PRML/2_DataPreprocessing.rst
 
 ######
 包库
