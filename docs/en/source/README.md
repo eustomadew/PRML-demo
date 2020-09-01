@@ -6,6 +6,8 @@
 
 ## PRML
 
+## DSP
+
 ## Pkgs
 
 ## Algs
