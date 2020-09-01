@@ -24,6 +24,18 @@ PRML
    PRML/2_DataPreprocessing.rst
 
 ######
+DSP
+######
+
+.. toctree::
+   :maxdepth: 3
+
+   DSP/1_Basic.rst
+   DSP/2_filter.rst
+   DSP/3_scale.rst
+   DSP/4_py_pil.rst
+
+######
 包库
 ######
 

@@ -84,3 +84,10 @@
 [GitBook 基本使用](http://www.chengweiyang.cn/gitbook/basic-usage/README.html)  
 [GitBook 文档中文版](https://chrisniael.gitbooks.io/gitbook-documentation/content/)  
 
+#### MkDocs
+
+[Mkdocs 配置和使用](https://www.xncoding.com/2020/03/01/tool/mkdocs.html)  
+[自定义主题](https://github.com/zimocode/mkdocs-docs-zh)  
+[MkDocs中文文档](https://markdown-docs-zh.readthedocs.io/zh_CN/latest/user-guide/configuration/)  
+[基于mkdocs-material搭建个人静态博客](https://zhuanlan.zhihu.com/p/56891725)  
+
