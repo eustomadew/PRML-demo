@@ -7,6 +7,25 @@
 空间滤波基础
 -----------------------------------
 
+某些邻域处理工作是操作邻域的图像像素值以及相应的与邻域有相同维数的子图像的值. 这些子图像可以被称为 **滤波器, 掩模, 核, 模板** 或 **窗口**. 在滤波器子图像中的值是系数, 而不是像素值.
+
+空间滤波的机理就是在待处理图像上逐点地移动掩模. 在每一点, 滤波器的响应通过事先定义的关系来计算. 对于线性空间滤波, 其相应由滤波器系数与滤波掩模扫过区域的相应像素值的乘积之和给出.
+
+.. image:: http://accu.cc/img/pil/spatial_filter/spatial_filter.jpg
+
+线性空间滤波处理经常被称为"掩模与图像的卷积", 类似的, 滤波模板有时也成为"卷积模板", "卷积核" 一词也常用于此.
+
+实现空间滤波邻域处理时的一个重要考虑因素就是 **滤波中心靠近图像轮廊时发生的情况**. 
+
+考虑一个简单的大小为 n * n 的方形掩模, 当掩模中心距离图像边缘为 (n-1)/2 个像素时, 该掩模至少有一条边与图像轮廓相重合. 
+如果掩模的中心继续向图像边缘靠近,那么掩模的行或列就会处于图像平面之外. 有很多方法可以处理这种问题. 
+
+- 最简单的方法就是将掩模中心点的移动范围限制在距离图像边缘不小于 (n-1)/2个像素处. 这种做法将使处理后的图像比原始图像稍小, 滤波后的图像中的所有像素点都由整个掩模处理. 
+- 如果要求处理后的输出图像与原始图像一样大, 那么所采用的典型方法是, 用全部包含于图像中的掩模部分滤波所有像素. 通过这种方法, 图像靠近边缘部分的像素带将用部分滤波掩模来处理. 
+- 另一种方法就是在图像边缘以外再补上一行和一列灰度为零的像素点(其灰度也可以为其他常值), 或者将边缘复制补在图像之外. 补上的那部分经过处理后去除. 这种方法保持了处现后的图像弓原始图像尺寸大小相等, 但是补在靠近图像边缘的部分会带来不良影响, 这种影响随着掩模尺寸的增加而增大. 
+
+总之, 获得最佳滤波效果的惟一方法是使滤波掩模屮心距原图像边缘的距离不小于 (n-1)/2 个像素.
+
 
 -----------------------------------
 空间滤波 - 均值滤波
@@ -15,8 +34,49 @@
 均值滤波
 ===================================
 
+均值滤波器的输出是包含在滤波掩模领域内像素的简单平均值. 均值滤波器最常用的目的就是 **减噪**. 
+然而, 图像边缘也是由图像灰度尖锐变化带来的特性, 所以均值滤波还是存在不希望的 **边缘模糊负面效应**.
+
+均值滤波还有一个重要应用, **为了对感兴趣的图像得出一个粗略描述而模糊一幅图像**. 这样, 那些较小物体的强度与背景揉合在一起了, 较大物体变得像斑点而易于检测. 掩模的大小由即将融入背景中的物体尺寸决定.
+
 代码实现
 ===================================
+
+使用一个 3*3 均值滤波器处理图像
+
+::
+
+    import numpy as np
+    import PIL.Image
+    import scipy.misc
+    import scipy.signal
+
+    def convert_2d(r):
+        n = 3
+        # 3*3 滤波器，每个系数都是 1/9
+        window = np.ones((n, n)) / n ** 2
+        # 使用滤波器卷积图像
+        # mode = same 表示输出尺寸等于输入尺寸
+        # boundary 表示采用对称边界条件处理图像边缘
+        s = scipy.signal.convolve2d(r, window, mode='same', boundary='symm')
+        return s.astype(np.uint8)
+
+    def convert_3d(r):
+        s_dsplit = []
+        for d in range(r.shape[2]):
+            rr = r[:, :, d]
+            ss = convert_2d(rr)
+            s_dsplit.append(ss)
+        s = np.dstack(s_dsplit)
+        return s
+
+    im = PIL.Image.open('DSP/jp.jpg')
+    im_mat = np.asarray(im)
+    im_converted_mat = convert_3d(im_mat)
+    im_converted = PIL.Image.fromarray(im_converted_mat)
+    im_converted.show()
+
+.. image:: ../../../../DSP/2_filter_mean.BMP
 
 -----------------------------------
 空间滤波 - 中值滤波
@@ -25,11 +85,94 @@
 中值滤波
 ===================================
 
+中值滤波是一种非线性空间滤波器, 它的响应基于图像滤波器包围的图像区域中像素的统计排序, 然后由统计排序结果的值代替中心像素的值. 
+中值滤波器将其像素邻域内的灰度中值代替代替该像素的值. 
+
+中值滤波器的使用非常普遍, 这是因为对于一定类型的随机噪声, 它提供了一种优秀的去噪能力, 比小尺寸的均值滤波器模糊程度明显要低. 中值滤波器对处理脉冲噪声(也称椒盐噪声)非常有效, 因为该噪声是以黑白点叠加在图像上面的.
+
+与中值滤波相似的还有最大值滤波器和最小值滤波器.
+
 代码实现
 ===================================
 
+10 * 10 的中值滤波器实现
+
+::
+
+    import numpy as np
+    import PIL.Image
+    import scipy.misc
+    import scipy.ndimage
+
+    def convert_2d(r):
+        n = 10
+        s = scipy.ndimage.median_filter(r, (n, n))
+        return s.astype(np.uint8)
+
+    def convert_3d(r):
+        s_dsplit = []
+        for d in range(r.shape[2]):
+            rr = r[:, :, d]
+            ss = convert_2d(rr)
+            s_dsplit.append(ss)
+        s = np.dstack(s_dsplit)
+        return s
+
+    im = PIL.Image.open('/img/jp.jpg')
+    im_mat = np.asarray(im)
+    im_converted_mat = convert_3d(im_mat)
+    im_converted = PIL.Image.fromarray(im_converted_mat)
+    im_converted.show()
+
 效果展示
 ===================================
+
+中值滤波能产生类似油彩一样的效果, 如下是使用 10 * 10 中值滤波器处理后的图像
+
+.. image:: http://accu.cc/img/pil/spatial_filter_medium/sample1.jpg
+
+如下是使用中值滤波去除椒盐噪声的示例. 从左至右分别为 **原始图像**, 加入 **椒盐噪声** 后的图像, **均值滤波** 后的图像与 **中值滤波** 后的图像
+
+.. image:: http://accu.cc/img/pil/spatial_filter_medium/sample2.jpg
+
+.. admonition:: 椒盐噪声
+
+    ref: https://zh.wikipedia.org/wiki/%E6%A4%92%E7%9B%90%E5%99%AA%E5%A3%B0
+
+    **椒盐噪声** 也称为 **脉冲噪声**，是图像中经常见到的一种噪声，它是一种随机出现的白点或者黑点，可能是亮的区域有黑色像素或是在暗的区域有白色像素（或是两者皆有）。椒盐噪声的成因可能是影像讯号受到突如其来的强烈干扰而产生、模数转换器或位元传输错误等。例如失效的感应器导致像素值为最小值，饱和的感应器导致像素值为最大值。
+
+    常用的去除这种噪声的有效手段是使用中值滤波器。下面的实例图像分别是原始图像、带有椒盐噪声的图像、经过平均滤波器修复的图像以及经过中值滤波器修复的图像。
+
+.. admonition:: 最大值最小值滤波
+
+    ref: https://docs.scipy.org/doc/scipy/reference/ndimage.html
+
+    ::
+
+        s = scipy.ndimage.median_filter(r, (n, n))
+        # s = scipy.ndimage.minimum_filter(r, (n, n))
+        # s = scipy.ndimage.maximum_filter(r, (n, n))
+        # s = scipy.ndimage.percentile_filter(r, 50, (n, n))
+        # s = scipy.ndimage.rank_filter(r, 3, (n, n))
+        # s = scipy.ndimage.uniform_filter(r, (n, n))
+
+    median_filter
+
+    .. image:: ../../../../DSP/2_filter_median_medi.jpg
+
+    | minimum_filter
+    | maximum_filter
+
+    .. image:: ../../../../DSP/2_filter_median_min.jpg
+    .. image:: ../../../../DSP/2_filter_median_max.jpg
+
+    | percentile_filter
+    | rank_filter
+    | uniform_filter
+
+    .. image:: ../../../../DSP/2_filter_median_perc.jpg
+    .. image:: ../../../../DSP/2_filter_median_rank.jpg
+    .. image:: ../../../../DSP/2_filter_median_unif.jpg
 
 -----------------------------------
 空间滤波- 锐化滤波
@@ -38,8 +181,72 @@
 锐化滤波
 ===================================
 
+在数学中, 微分是对函数的局部变化率的一种线性描述. 微分可以近似地描述当函数自变量的取值作足够小的改变时, 函数的值是怎样改变的. 最简单的各向同性微分算子是拉普拉斯算子. 一个二元图像函数 :math:`f(x,y)` 的拉普拉斯变换定义为 
+:math:`\nabla^2 f = \frac{ \partial^2 f }{ \partial x^2 } + \frac{ \partial^2 f }{ \partial y^2 }`
+
+因为任意阶微分都是线性操作, 所以拉普拉斯变换也是一个线性操作.
+
+| 为了更适合于图像处理, 这一方程必须表现为离散形式. 考虑到有两个变量, 因此, 
+| 我们在 x 方向上对二阶偏微分采用下列定义: :math:`\frac{\partial^2 f}{\partial x^2} = f(x+1,y) + f(x-1,y) - 2f(x,y)`
+| 类似的, 在 y 方向上为 :math:`\frac{\partial^2 f}{\partial y^2} = f(x,y+1) + f(x,y-1) - 2f(x,y)`
+
+因此 
+:math:`\nabla^2f = f(x+1,y)+f(x-1,y) + f(x,y+1)+f(x,y-1) - 4f(x,y)`
+
+因此，执行这一新定义的掩膜如下 
+:math:`\begin{bmatrix}
+0 & 1 & 0 \\
+1 & -4 & 1\\
+0 & 1 & 0
+\end{bmatrix}`
+
+由于拉普拉斯算子是一种微分算子, 它的应用强调图像中灰度的突变和降低灰度慢变化的区域. 这将产生一幅把图像中的浅灰色边线和突变点叠加到暗背景中的图像. 将原始图像和拉普拉斯图像叠加在一起的简单方法可以保护拉普拉斯锐化后的效果, 同时又能复原背景信息.
+
+除上述的淹膜外, 常见拉普拉斯算子还有
+
+:math:`\begin{bmatrix}
+0 & -1 & 0 \\
+-1 & 4 & -1\\
+0 & -1 & 0
+\end{bmatrix}`
+
+:math:`\begin{bmatrix}
+-1 & -1 & -1 \\
+-1 & 8 & -1\\
+-1 & -1 & -1
+\end{bmatrix}`
+
+:math:`\begin{bmatrix}
+1 & 1 & 1 \\
+1 & -8 & 1\\
+1 & 1 & 1
+\end{bmatrix}`
+
+使用拉普拉斯算子对图像进行增强的基本表示方法如下
+
+:math:`g(x, y)=
+\begin{cases}
+f(x, y) - \bigtriangledown ^2f(x, y) & \text{拉普拉斯算子中心系数为负} \\
+f(x, y) + \bigtriangledown ^2f(x, y) & \text{拉普拉斯算子中心系数为正}
+\end{cases}`
+
+
 代码实现
 ===================================
+
+在机理中, 我们首先使用拉普拉斯算子过滤图像, 然后, 从原图像中减去该图像. 但在实际使用中, 通常使用单一掩膜扫描来实现. 假设使用 2 号拉普拉斯算子, 代入机理最后一步, 得到
+:math:`\begin{align}
+g(x, y) =& f(x, y) - \bigtriangledown ^2f(x, y) \\
+=& 5f(x, y) - [f(x+1, y) + f(x-1, y) + f(x, y+1) + f(x, y-1)]
+\end{align}`
+
+因此, :math:`g(x,y)` 可以视为 :math:`f(x,y)` 经过
+:math:`\begin{bmatrix}
+0 & -1 & 0 \\
+-1 & 5 & -1\\
+0 & -1 & 0
+\end{bmatrix}` 
+过滤得到.
 
 效果展示
 ===================================

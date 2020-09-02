@@ -408,32 +408,244 @@ e.g., 比如换掉电子证件照的背景幕布颜色
 数字图像处理 - 图像减法
 -----------------------------------
 
-
 图像减法
 ===================================
 
+两幅图像 :math:`f(x,y)` 与 :math:`h(x,y)` 的差异表示为：
+:math:`g(x,y) = f(x,y) - h(x,y)`
+
+图像的差异是通过计算这两幅图像所有对应像素点的差而得出的。
+减法处理最主要的作用就是增强两幅图像的差异。
+在差值图像中，像素最小取值为 -255，最大取值为 255。
+因此显示这一图像需要某种标度。
+首先提取最小差值，并且把它的负值加到差值图像的所有像素中，
+然后通过 255/Max 值去乘每个像素 (其中 Max 为改进的差值图像中最大像素取值) 将图像中所有像素标定到 0 到 255 范围中。
 
 注意事项
 ===================================
 
+在 Numpy 中图像存储类型是 uint8，范围是 0-255，
+如果图像相减后得到负值，就会截取为 0 值。
+因此在处理差值图像时需要将数据以 float 保存。
+处理完成后再转换为 uint8. 
 
 代码实现
 ===================================
+
+:: 
+
+    # 取得原图与其高斯模糊图像的差值图像
+    import PIL.Image
+    import PIL.ImageFilter
+    import scipy.misc
+    import numpy as np
+
+    def convert_2d(r, h):
+        # 矩阵减法
+        s = r - h
+        if np.min(s) >= 0 and np.max(s) <= 255:
+            return s
+        # 线性拉伸
+        s = s - np.full(s.shape, np.min(s))
+        s = s * 255 / np.max(s)
+        s = s.astype(np.uint8)
+        return s
+
+    def convert_3d(r, h):
+        s_dsplit = []
+        for d in range(r.shape[2]):
+            rr = r[:, :, d]
+            hh = h[:, :, d]
+            ss = convert_2d(rr, hh)
+            s_dsplit.append(ss)
+        s = np.dstack(s_dsplit)
+        return s
+
+    im = PIL.Image.open('DSP/jp.jpg')
+    im = im.convert('RGB')
+    im_mat = np.asarray(im)
+    # 高斯模糊
+    im_converted = im.filter(PIL.ImageFilter.GaussianBlur(radius=2))
+    im_converted_mat = scipy.misc.fromimage(im_converted)
+    im_sub_mat = convert_3d(im_mat, im_converted_mat)
+    im_sub = PIL.Image.fromarray(im_sub_mat)
+    im_sub.show()
+
+.. admonition:: imread 错误
+
+    若出现错误 AttributeError: module 'scipy.misc' has no attribute 'fromimage' 
+
+    这是 scipy 的版本问题，可以使用 np.asarray 来代替，并保存图片，即
+
+    ::
+
+        im_converted_mat = np.asarray(im_converted)
+        im_converted.save('./1_sub.jpg', quality=95)
+
+        im_converted.save('./1_sub.jpg', quality=95, subsampling=0)
+
+    ref: https://blog.csdn.net/weixin_41935140/article/details/83308359
+
+    | 在保存为 JPG/JPEG 格式时，使用默认参数可能会发现图片被严重压缩，使得图片大小被压缩至几十K，其原因在于保存过程中使用压缩算法对图片进行了压缩处理。
+    | 若希望图片大小不能变化太大，可使用参数 quality 和 subsampling。
+
+    - quality 参数：保存图片的质量，默认值为 75，范围从 1 (最差) 到 95 (最佳)。使用中应尽量避免高于95的值，100会禁用部分JPEG压缩算法，并导致大文件图像质量几乎没有任何增益。
+    - subsampling 参数：子采样，通过实现色度信息的分辨率低于亮度信息来对图像进行编码的实践。可能的子采样值是 0,1 和 2，分别对应于 4:4:4, 4:2:2 和 4:1:1 (或 4:2:0?)。实践中设为 0 即可满足增大图片大小的需求。
+
+**输出结果**
+
+.. image:: http://accu.cc/img/pil/sub/sub.jpg
+
+高斯模糊图像
+
+.. image:: ../../../../DSP/1_sub.jpg
 
 
 -----------------------------------
 数字图像处理 - 加性高斯白噪声与去噪
 -----------------------------------
 
-
 加性高斯白噪声
 ===================================
 
+加性高斯白噪声 (Additive white Gaussian noise，AWGN) 在通信领域中指的是一种 **功率谱函数是常数 (即白噪声), 且幅度服从高斯分布** 的噪声信号. 这类噪声通常来自感光元件, 且无法避免. 
 
 加噪
 ===================================
 
+Numpy 中使用 `numpy.random.normal()` 函数生成正态分布数据。
+
+::
+
+    import numpy as np
+    import matplotlib.pyplot as plt
+
+    # 生成均值为 0，标准差为 64 的正态分布数据
+    data = np.random.normal(0, 64, 1024 * 8)
+
+    # 在 plt 中画出直方图
+    plt.hist(data, 256, normed=1)
+    plt.show()
+
+为图像添加高斯白噪声. 注意到添加完噪声的图像, 像素值可能低于 0 或高于 255, 此时应该对转换后的图像做一次对比拉伸.
+
+::
+
+    import PIL.Image
+    import scipy.misc
+    import numpy as np
+
+    def convert_2d(r):
+        # 添加均值为 0，标准差为 64 的加性高斯白噪声
+        s = r + np.random.normal(0, 64, r.shape)
+        if np.min(s) >= 0 and np.max(s) <= 255:
+            return s
+        # 对比拉伸
+        s = s - np.full(s.shape, np.min(s))
+        s = s * 255 / np.max(s)
+        s = s.astype(np.uint8)
+        return s
+
+    def convert_3d(r):
+        s_dsplit = []
+        for d in range(r.shape[2]):
+            rr = r[:, :, d]
+            ss = convert_2d(rr)
+            s_dsplit.append(ss)
+        s = np.dstack(s_dsplit)
+        return s
+
+    im = PIL.Image.open('DSP/jp.jpg')
+    im = im.convert('RGB')
+    im_mat = np.asarray(im)
+    im_converted_mat = convert_3d(im_mat)
+    im_converted = PIL.Image.fromarray(im_converted_mat)
+    im_converted.show()
+
+**加噪后的图像**
+
+.. image:: http://accu.cc/img/pil/agwn/jp_agwn.jpg
+
+高斯噪声的直方图
+
+.. image:: ../../../../DSP/1_noise_gauss.png
 
 去噪
 ===================================
+
+| 考虑一幅将噪声 :math:`\eta(x,y)` 加入到原始图像 :math:`f(x,y)` 形成的带有噪声的图像 :math:`g(x,y)` ，即：
+| :math:`g(x,y) = f(x,y) + \eta(x,y)`
+
+| 这里假设每个坐标点 :math:`(x,y)` 上的噪声都不相关且均值为 0. 
+| 我们处理的目标就是通过人为加入一系列噪声图像 :math:`g_i(x,y)` 来减少噪声。
+| 如果对 K 幅带有不同噪声的图像取平均值，即
+| :math:`\bar{g}(x,y) = \frac{1}{K} \sum_{i=1}^K g_i(x,y) = f(x,y) + \frac{1}{K} \sum_{i=1}^K \eta_i(x,y)`
+
+当 K 足够大时， :math:`\frac{1}{K} \sum_{i=1}^K \eta_i(x,y)` 趋近于 0，因此
+:math:`\bar{g}(x,y) = f(x,y)`
+
+下面尝试对上述图片取 K=128 进行去噪
+
+::
+
+    import PIL.Image
+    import scipy.misc
+    import numpy as np
+
+    def convert_2d(r):
+        # 添加均值为 0，标准差为 64 的加性高斯白噪声
+        s = r + np.random.normal(0, 64, r.shape)
+        if np.min(s) >= 0 and np.max(s) <= 255:
+            return s
+        # 对比拉伸
+        s = s - np.full(s.shape, np.min(s))
+        s = s * 255 / np.max(s)
+        s = s.astype(np.uint8)
+        return s
+
+    def convert_3d(r):
+        s_dsplit = []
+        for d in range(r.shape[2]):
+            rr = r[:, :, d]
+            ss = convert_2d(rr)
+            s_dsplit.append(ss)
+        s = np.dstack(s_dsplit)
+        return s
+
+    im = PIL.Image.open('DSP/jp.jpg')
+    im_mat = np.asarray(im)
+
+    k = 128
+
+    im_converted_mat = np.zeros(im_mat.shape)
+    for i in range(k):
+        im_converted_mat += convert_3d(im_mat)
+
+    im_converted_mat = im_converted_mat / k
+    im_converted_mat = im_converted_mat - np.full(im_converted_mat.shape, np.min(im_converted_mat))
+    im_converted_mat = im_converted_mat * 255 / np.max(im_converted_mat)
+    im_converted_mat = im_converted_mat.astype(np.uint8)
+
+    im_converted = PIL.Image.fromarray(im_converted_mat)
+    im_converted.show()
+
+**去噪后的图像**
+
+.. image:: http://accu.cc/img/pil/agwn/jp_denoise.jpg
+
+可见去噪后的图像已十分接近于原始图像了。
+读者可自由选取 K=4, K=16 等不同值查看去噪效果。
+
+
+| K = 64
+| K = 32
+
+.. image:: ../../../../DSP/1_noise_k64.jpg
+.. image:: ../../../../DSP/1_noise_k32.jpg
+
+| K = 16
+| K = 4
+
+.. image:: ../../../../DSP/1_noise_k16.jpg
+.. image:: ../../../../DSP/1_noise_k4.jpg
 

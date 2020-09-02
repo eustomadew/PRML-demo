@@ -73,6 +73,9 @@
 [rst 语法规则快速入门](http://blog.useasp.net/archive/2014/09/05/rst-file-restructuredtext-markup-syntax-quikstart.aspx#title)  
 [rst 文档编写攻略](https://cloud.tencent.com/developer/article/1143919)  
 
+[用 reST 编写文档](https://zzqcn.github.io/design/rest/index.html)  
+[入门 reStructured]
+
 
 ### Online Docs
 
