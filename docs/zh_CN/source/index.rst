@@ -18,22 +18,23 @@ PRML
 ######
 
 .. toctree::
-   :maxdepth: 3
+   :maxdepth: 2
 
-   PRML/1_Introduction.rst
-   PRML/2_DataPreprocessing.rst
+   PRML1_Introduction.rst
+   PRML2_DataPreprocessing.rst
 
 ######
 DSP
 ######
 
 .. toctree::
-   :maxdepth: 3
+   :maxdepth: 2
 
-   DSP/1_Basic.rst
-   DSP/2_filter.rst
-   DSP/3_scale.rst
-   DSP/4_py_pil.rst
+   DSP1_Basic.rst
+   DSP2a_filter.rst
+   DSP2b_filter.rst
+   DSP3_scale.rst
+   DSP4_py_pil.rst
 
 ######
 包库
@@ -42,8 +43,8 @@ DSP
 .. toctree::
    :maxdepth: 3
 
-   Pkgs/1_Installation.rst
-   Pkgs/2_CommonUsages.rst
+   Pkgs1_Installation.rst
+   Pkgs2_CommonUsages.rst
 
 ######
 算法
@@ -56,7 +57,7 @@ DSP
 .. toctree::
    :maxdepth: 3
 
-   Cmds/1_Anaconda.rst
+   Cmds1_Anaconda.rst
 
 
 

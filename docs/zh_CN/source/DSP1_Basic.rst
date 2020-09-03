@@ -14,7 +14,7 @@
 
 以一张 480x270 的RGB色彩空间图像为例，编写如下代码
 
-.. image:: ../../../../DSP/jp.jpg
+.. image:: ../../../DSP/jp.jpg
 
 ::
     
@@ -64,7 +64,7 @@
 | G: http://accu.cc/img/pil/channel/jp_g.jpg
 | B: http://accu.cc/img/pil/channel/jp_b.jpg
 
-.. image ../../../../DSP/1_channels_RGB.jpg
+.. image ../../../DSP/1_channels_RGB.jpg
 
 .. image:: http://accu.cc/img/pil/channel/jp_r.jpg
 .. image:: http://accu.cc/img/pil/channel/jp_g.jpg
@@ -401,8 +401,8 @@ e.g., 比如换掉电子证件照的背景幕布颜色
 | `im.convert('L')` 后的图像
 | 最终 `im_converted` 的图像
 
-.. image:: ../../../../DSP/1_hist_L.png
-.. image:: ../../../../DSP/1_hist_af.BMP
+.. image:: ../../../DSP/1_hist_L.png
+.. image:: ../../../DSP/1_hist_af.BMP
 
 -----------------------------------
 数字图像处理 - 图像减法
@@ -498,7 +498,7 @@ e.g., 比如换掉电子证件照的背景幕布颜色
 
 高斯模糊图像
 
-.. image:: ../../../../DSP/1_sub.jpg
+.. image:: ../../../DSP/1_sub.jpg
 
 
 -----------------------------------
@@ -568,7 +568,7 @@ Numpy 中使用 `numpy.random.normal()` 函数生成正态分布数据。
 
 高斯噪声的直方图
 
-.. image:: ../../../../DSP/1_noise_gauss.png
+.. image:: ../../../DSP/1_noise_gauss.png
 
 去噪
 ===================================
@@ -640,12 +640,12 @@ Numpy 中使用 `numpy.random.normal()` 函数生成正态分布数据。
 | K = 64
 | K = 32
 
-.. image:: ../../../../DSP/1_noise_k64.jpg
-.. image:: ../../../../DSP/1_noise_k32.jpg
+.. image:: ../../../DSP/1_noise_k64.jpg
+.. image:: ../../../DSP/1_noise_k32.jpg
 
 | K = 16
 | K = 4
 
-.. image:: ../../../../DSP/1_noise_k16.jpg
-.. image:: ../../../../DSP/1_noise_k4.jpg
+.. image:: ../../../DSP/1_noise_k16.jpg
+.. image:: ../../../DSP/1_noise_k4.jpg
 
