@@ -235,10 +235,10 @@ f(x, y) + \nabla ^2f(x, y) & \text{拉普拉斯算子中心系数为正}
 ===================================
 
 在机理中, 我们首先使用拉普拉斯算子过滤图像, 然后, 从原图像中减去该图像. 但在实际使用中, 通常使用单一掩膜扫描来实现. 假设使用 1 号拉普拉斯算子, 代入机理最后一步, 得到
-:math:`\begin{align}
+:math:`\begin{aligned}
 g(x, y) =& f(x, y) - \nabla ^2f(x, y) \\
 =& 5f(x, y) - [f(x+1, y) + f(x-1, y) + f(x, y+1) + f(x, y-1)]
-\end{align}`
+\end{aligned}`
 
 因此, :math:`g(x,y)` 可以视为 :math:`f(x,y)` 经过
 :math:`\begin{bmatrix}
@@ -328,13 +328,13 @@ g(x, y) =& f(x, y) - \nabla ^2f(x, y) \\
 
     - 使用 3 号拉普拉斯算子：
 
-      - 其中 :math:`\begin{align}\nabla^2f =& -f(x+1,y) -f(x-1,y) -f(x,y+1) -f(x,y-1) + 8f(x,y) \\ & -f(x-1,y-1) -f(x+1,y-1) -f(x-1,y+1) -f(x+1,y+1)\end{align}`
-      - 因此 :math:`\begin{align}g(x,y) =& -7f(x,y) +[f(x+1,y) +f(x-1,y) +f(x,y+1) +f(x,y-1)] \\ +&[f(x-1,y-1) +f(x+1,y-1) +f(x-1,y+1) +f(x+1,y+1)]\end{align}`
+      - 其中 :math:`\begin{aligned}\nabla^2f =& -f(x+1,y) -f(x-1,y) -f(x,y+1) -f(x,y-1) + 8f(x,y) \\ & -f(x-1,y-1) -f(x+1,y-1) -f(x-1,y+1) -f(x+1,y+1)\end{aligned}`
+      - 因此 :math:`\begin{aligned}g(x,y) =& -7f(x,y) +[f(x+1,y) +f(x-1,y) +f(x,y+1) +f(x,y-1)] \\ +&[f(x-1,y-1) +f(x+1,y-1) +f(x-1,y+1) +f(x+1,y+1)]\end{aligned}`
 
     - 使用 4 号拉普拉斯算子：
 
-      - 其中 :math:`\begin{align}\nabla^2f =& f(x+1,y) +f(x-1,y) +f(x,y+1) +f(x,y-1) - 8f(x,y) \\ & +f(x-1,y-1) +f(x+1,y-1) +f(x-1,y+1) +f(x+1,y+1)\end{align}`
-      - 因此 :math:`\begin{align}g(x,y) =& 9f(x,y) -[f(x+1,y) +f(x-1,y) +f(x,y+1) +f(x,y-1)] \\ -&[f(x-1,y-1) +f(x+1,y-1) +f(x-1,y+1) +f(x+1,y+1)]\end{align}`
+      - 其中 :math:`\begin{aligned}\nabla^2f =& f(x+1,y) +f(x-1,y) +f(x,y+1) +f(x,y-1) - 8f(x,y) \\ & +f(x-1,y-1) +f(x+1,y-1) +f(x-1,y+1) +f(x+1,y+1)\end{aligned}`
+      - 因此 :math:`\begin{aligned}g(x,y) =& 9f(x,y) -[f(x+1,y) +f(x-1,y) +f(x,y+1) +f(x,y-1)] \\ -&[f(x-1,y-1) +f(x+1,y-1) +f(x-1,y+1) +f(x+1,y+1)]\end{aligned}`
 
     总之，代入机理最后一步为 :math:`g(x,y) = f(x,y) - \nabla^2f(x,y)`
 

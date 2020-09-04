@@ -24,6 +24,15 @@ PRML
    PRML2_DataPreprocessing.rst
 
 ######
+算法
+######
+
+.. toctree::
+   :maxdepth: 2
+
+   Algs_DP.rst
+
+######
 DSP
 ######
 
@@ -41,21 +50,17 @@ DSP
 ######
 
 .. toctree::
-   :maxdepth: 3
+   :maxdepth: 2
 
    Pkgs1_Installation.rst
    Pkgs2_CommonUsages.rst
-
-######
-算法
-######
 
 ######
 命令
 ######
 
 .. toctree::
-   :maxdepth: 3
+   :maxdepth: 2
 
    Cmds1_Anaconda.rst
 

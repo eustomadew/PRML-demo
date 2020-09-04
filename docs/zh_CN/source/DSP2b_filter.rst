@@ -445,11 +445,11 @@
   - GHPF: :math:`H(u,v) = 1 - e^{ -D^2(u,v) / 2D_0^2 }`
 
 巴特沃斯的公式推导 
-:math:`\begin{align}
+:math:`\begin{aligned}
 1-BLPF =& \frac{ [D/D_0]^{2n} }{ 1+[D/D_0]^{2n} } & \\
 =& \frac{1}{ \left( 1+[D/D_0]^{2n} \right)\cdot [D_0/D]^{2n} } & \\
 =& \frac{1}{ [D_0/D]^{2n} +1 } &= BHPF
-\end{align}`
+\end{aligned}`
 
 .. admonition:: 绘制结果对比
 

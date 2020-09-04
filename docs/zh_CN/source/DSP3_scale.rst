@@ -753,23 +753,23 @@ ref: 图像均值 http://accu.cc/content/pil/mean/
 
     .. image:: https://img-blog.csdn.net/20180310144742113?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvbG92ZXhsc2ZvcmV2ZXI=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70
 
-    :math:`\begin{align}
+    :math:`\begin{aligned}
     & \frac{y - y_0}{x - x_0} = \frac{y_1 - y_0}{x_1 - x_0} \\
     y= & \frac{x_1-x}{x_1-x_0} y_0 + \frac{x-x_0}{x_1-x_0} y_1
-    \end{align}`
+    \end{aligned}`
 
     计算过程：
 
-    :math:`\begin{align}
+    :math:`\begin{aligned}
     y= & \frac{y_1-y_0}{x_1-x_0} x - \frac{y_1-y_0}{x_1-x_0}x_0 + y_0 \\
     =& \frac{y_1-y_0}{x_1-x_0}x - \frac{ y_1x_0 - y_0x_0 + x_1y_0 - x_0y_0 }{x_1-x_0} \\
     =& \frac{y_1-y_0}{x_1-x_0}x - \frac{x_0y_1 + x_1y_0 -2 x_0y_0}{x_1-x_0}
-    \end{align}`
+    \end{aligned}`
 
-    :math:`\begin{align}
+    :math:`\begin{aligned}
     y =& \bigg(1-\frac{x-x_0}{x_1-x_0}\bigg)y_0 + \frac{x-x_0}{x_1-x_0}y_1 \\
     =& \frac{x_1-x}{x_1-x_0}y_0 + \frac{x-x_0}{x_1-x_0}y_1
-    \end{align}`
+    \end{aligned}`
 
     **双线性插值法**
 
@@ -782,26 +782,26 @@ ref: 图像均值 http://accu.cc/content/pil/mean/
 
     首先在 x 方向上进行线性插值，可得
 
-    :math:`\begin{align}
+    :math:`\begin{aligned}
     f(R_1) \approx & \frac{x_2-x}{x_2-x_1}f(Q_{11}) + \frac{x-x_1}{x_2-x_1}f(Q_{21}) \;\text{ where } R_1=(x,y_1) \\
     f(R_2) \approx & \frac{x_2-x}{x_2-x_1}f(Q_{12}) + \frac{x-x_1}{x_2-x_1}f(Q_{22}) \;\text{ where } R_2=(x,y_2)
-    \end{align}`
+    \end{aligned}`
 
     然后在 y 方向上进行线性插值，可得
 
-    :math:`\begin{align}
+    :math:`\begin{aligned}
     f(P) \approx \frac{y_2-y}{y_2-y_1}f(R_1) + \frac{y-y_1}{y_2-y_1}f(R_2)
-    \end{align}`
+    \end{aligned}`
 
     综合起来就是双线性内插的最终结果，即
 
-    :math:`\begin{align}
+    :math:`\begin{aligned}
     f(x,y) =& 
     \quad\, \frac{(x_2-x)(y_2-y)}{(x_2-x_1)(y_2-y_1)}f(Q_{11}) 
     + \frac{(x-x_1)(y_2-y)}{(x_2-x_1)(y_2-y_1)}f(Q_{21}) \\
     &+ \frac{(x_2-x)(y-y_1)}{(x_2-x_1)(y_2-y_1)}f(Q_{12}) 
     + \frac{(x-x_1)(y-y_1)}{(x_2-x_1)(y_2-y_1)}f(Q_{22})
-    \end{align}`
+    \end{aligned}`
 
     由于图像双线性插值只会用相邻的 4 个点，因此上述公式的分母都是 1. 
 
