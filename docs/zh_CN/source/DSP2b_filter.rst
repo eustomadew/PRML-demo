@@ -18,6 +18,8 @@
 傅里叶变换将函数的时域 (红色) 与频域 (蓝色) 相关联. 频谱中的不同成分频率在频域中以峰值形式表示:
 
 .. image:: http://accu.cc/img/pil/frequency_filter/fourier_transform_time_and_frequency_domains.gif
+    :height: 240px
+    :width: 300px
 
 频域中的滤波基础
 ===================================

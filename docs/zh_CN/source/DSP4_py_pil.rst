@@ -96,6 +96,8 @@ PIL 在保存图像时, 会自动根据文件后缀名进行格式转化.
     roll(im, 100).show()
 
 .. image:: http://accu.cc/img/pil/pil_tutorial_overview/roll.gif
+    :height: 270px
+    :width: 480px
 
 请注意, 当从 `crop()` 操作中将其粘贴回时, 将首先调用 `load()`. 这是因为裁剪是一个惰性操作. 
 如果未调用 `load()`, 则在粘贴命令中使用图像之前, 将不会执行裁剪操作. 
@@ -746,6 +748,8 @@ Python-PIL-ImageEnhance
         enhancer.enhance(i / 10.0).show()
 
 .. image:: http://accu.cc/img/pil/pil_imageenhance/color.gif
+    :height: 270px
+    :width: 480px
 
 对比度
 ===================================
